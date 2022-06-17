@@ -23,7 +23,26 @@ const port = 8000;
 
 const listening = () =>{
   console.log('server is running');
-  console.log(`server is running at ${port}`);
+  console.log(`running on localhost: ${port}`);
 };
 
 app.listen(port, listening);
+
+//GET Route Server Side, returning the endpoint data, and created a new route called /all
+app.get('/', function(request, response){
+  console.log(projectData);
+   response.send(projectData);
+});
+
+//POST Route Server Side
+app.post('/website', function(request, response){
+  newEntry ={
+    date: request.body.date,
+    temp: request.body.temp,
+    zip: request.body.zip
+   // content: request.body.content
+  };
+
+  projectData.push(newEntry);
+  console.log(projectData);
+});
