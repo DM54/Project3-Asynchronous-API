@@ -35,13 +35,13 @@ app.get('/all', function(request, response){
 });
 
 //POST Route Server Side
-/*app.post('/all', function(request, response){
+app.post('/all', function(request, response){
   newEntry ={
-    date: request.body.date,
-    temp: request.body.temp,
-    zip: request.body.zip
+    //date: request.body.date,
+    temp: request.body.temp
+   // zip: request.body.zip
   };
 
   projectData.push(newEntry);
   console.log(projectData);
-});*/
+});

@@ -1,6 +1,7 @@
 /* Global Variables */
 let getData = ()=>{};
-
+let postData = () =>{};
+let feelingsid;
 // Personal API Key for OpenWeatherMap API
 const apiKey = '14d242caefcc16d1d730d8cb6fec4d96&units=imperial';
 let zipcodeinput;
@@ -26,12 +27,12 @@ const getweatherData = async (baseURL, apikey) =>{
 
 const perfromaction = () =>{
   zipcodeinput = document.querySelector('#zip').value;
-  const feelingsid = document.getElementById('feelings').nodeValue;
+  feelingsid = document.querySelector('#feelings').value;
 
   getData(baseURL,zipcodeinput,appid,apiKey)
- /* .then(() =>{
-    postData('/', {zipid: zipid, feelingsid: feelingsid});
-  });*/
+ .then((data) =>{
+  postData('/all', {zip: data, feelingsid: feelingsid});
+  })
 };
 
 
@@ -40,11 +41,11 @@ document.getElementById('generate').addEventListener('click', ()=>{perfromaction
 
 // Part 2 for GET Route Client Side
  getData = async (baseURL, zipcodeinput, appid, apiKey) =>{
-  const res = await fetch(baseURL+zipcodeinput+appid+apiKey);
+  const request = await fetch(baseURL+zipcodeinput+appid+apiKey);
   try{
-    const alldata = await res.json();
+    const alldata = await request.json();
     console.log(alldata);
-    return alldata;
+    //return alldata;
   }
   catch(error){
     console.log('error', error);
@@ -54,24 +55,27 @@ document.getElementById('generate').addEventListener('click', ()=>{perfromaction
 
 
 //POST Route Client Side
-/*const postData = async (url='', data={})=>{
-  const response = await fetch(url, {
-    method: 'POST',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data),
-  });
+postData = async (url='', data={})=>{
+  const res = await fetch(url,
+    {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    }
+    );
 
   try{
-    const newData = await response.json();
+    const newData = await res.json();
+    console.log(newData);
     return newData;
   }
   catch(error){
     console.log('error', error);
   }
-};*/
+};
 
 
 
