@@ -42,7 +42,8 @@ app.post('/all', function(request, response){
   const holddata = [];
   projectData ={
     temp: data.temperature,
-    feel: data.feelings
+    feel: data.feelings,
+    date: data.date
   };
  // console.log(data);
   holddata.push(projectData);

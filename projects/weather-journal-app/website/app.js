@@ -32,7 +32,10 @@ const perfromaction = () =>{
   getData(baseURL,zipcodeinput,appid,apiKey)
  .then((data) =>{
   const temperature = data.main.temp;
-  postData('/all', {temperature,feelings: feelingsid});
+  postData('/all', {temperature,feelings: feelingsid, date: newDate});
+  })
+  .then(() =>{
+    updateUI()
   })
 };
 
@@ -78,7 +81,20 @@ postData = async (url='', data={})=>{
   }
 };
 
-
+//update UI
+const updateUI = async () =>{
+  const request = await fetch('/all');
+  try{
+    const allData = await request.json();
+    console.log(allData);
+    document.getElementById('temp').innerHTML = Math.round(allData.temp) + ' degrees';
+    document.getElementById('content').innerHTML = allData.feel;
+    document.getElementById('date').innerHTML = allData.date;
+  }
+  catch(error){
+    console.log('error', error);
+  }
+};
 
 // Create a new date instance dynamically with JS
 let d = new Date();
