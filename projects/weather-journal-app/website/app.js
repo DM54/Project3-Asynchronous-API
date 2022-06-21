@@ -31,7 +31,8 @@ const perfromaction = () =>{
 
   getData(baseURL,zipcodeinput,appid,apiKey)
  .then((data) =>{
-  postData('/all', {zip: data, feelingsid: feelingsid});
+  const temperature = data.main.temp;
+  postData('/all', {temperature,feelings: feelingsid});
   })
 };
 
@@ -45,7 +46,7 @@ document.getElementById('generate').addEventListener('click', ()=>{perfromaction
   try{
     const alldata = await request.json();
     console.log(alldata);
-    //return alldata;
+    return alldata;
   }
   catch(error){
     console.log('error', error);

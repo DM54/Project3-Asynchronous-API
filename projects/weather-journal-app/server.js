@@ -29,19 +29,22 @@ const listening = () =>{
 app.listen(port, listening);
 
 //GET Route Server Side, returning the endpoint data, and created a new route called /all
-app.get('/all', function(request, response){
-   console.log(projectData);
-   response.send(projectData);
-});
+app.get('/all', getcallback);
+
+function getcallback(request, response){
+  console.log(projectData);
+  response.send(projectData);
+};
 
 //POST Route Server Side
 app.post('/all', function(request, response){
-  newEntry ={
-    //date: request.body.date,
-    temp: request.body.temp
-   // zip: request.body.zip
+  const data = request.body;
+  const holddata = [];
+  projectData ={
+    temp: data.temperature,
+    feel: data.feelings
   };
-
-  projectData.push(newEntry);
-  console.log(projectData);
+ // console.log(data);
+  holddata.push(projectData);
+  console.log(holddata);
 });
